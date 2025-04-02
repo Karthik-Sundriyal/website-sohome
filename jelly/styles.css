@@ -1,0 +1,572 @@
+/* Custom styles to complement Tailwind */
+
+:root {
+  --orange-500: #f97316;
+  --orange-600: #ea580c;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--orange-500);
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-600);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange-500) #f1f1f1;
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.loading-screen.loaded {
+  transform: translateY(-100%);
+}
+
+.loading-logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: 2rem;
+  animation: pulse 2s infinite alternate, rotate 5s infinite;
+}
+
+.loading-ripple {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-ripple div {
+  position: absolute;
+  border: 4px solid var(--orange-500);
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading-ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.loading-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes loading-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.4));
+  }
+  100% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.7));
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(5deg);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Hide body content initially */
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Desktop navbar hover effects */
+.desktop-nav {
+  position: relative;
+  display: flex;
+}
+
+.desktop-nav a {
+  transition: all 0.3s ease;
+  position: relative;
+  transform-origin: center;
+}
+
+.desktop-nav:hover a:not(:hover) {
+  opacity: 0.5;
+  transform: scale(0.95);
+  filter: blur(1px);
+}
+
+.desktop-nav a:hover {
+  transform: scale(1.15);
+  color: var(--orange-500);
+  font-weight: 600;
+}
+
+.desktop-nav a:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--orange-500);
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
+}
+
+/* Custom select styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Date picker styling */
+.date-select-container {
+  position: relative;
+}
+
+#custom-date {
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+#custom-date:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#custom-date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(50%) sepia(90%) saturate(1500%) hue-rotate(360deg) brightness(100%) contrast(90%);
+}
+
+/* Enhanced mobile navbar and menu animation */
+.mobile-menu-btn {
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 20;
+}
+
+.mobile-menu-btn:hover {
+  transform: rotate(90deg);
+}
+
+.mobile-menu {
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transform-origin: top;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 500px; /* Set initial max-height */
+  opacity: 1;
+  overflow: hidden;
+}
+
+.mobile-menu.hidden {
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0.95);
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.mobile-menu a {
+  transition: all 0.3s ease;
+  opacity: 1; /* Start visible by default */
+  transform: translateX(0); /* Start in position by default */
+}
+
+.mobile-menu.hidden a {
+  opacity: 0;
+  transform: translateX(-10px); 
+}
+
+.mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu a:nth-child(5) { transition-delay: 0.3s; }
+.mobile-menu a:nth-child(6) { transition-delay: 0.35s; }
+.mobile-menu a:nth-child(7) { transition-delay: 0.4s; }
+
+/* Activity card hover effect */
+.group:hover img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.group img {
+  transition: transform 0.3s ease;
+}
+
+/* Logo styling */
+.logo {
+  height: 50px;
+}
+
+/* Leave Planning To Us section styling */
+.bg-orange-500 {
+  position: relative;
+}
+
+.bg-orange-500 h2 {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.bg-orange-500 .shadow-lg {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Blog Cards styling */
+.shadow-md {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shadow-md:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md h3 {
+  transition: color 0.3s ease;
+}
+
+.shadow-md:hover h3 {
+  color: var(--orange-500);
+}
+
+/* Get In Touch form styling */
+.bg-orange-500 input {
+  transition: all 0.3s ease;
+}
+
+.bg-orange-500 input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.bg-orange-500 button {
+  transition: all 0.3s ease;
+}
+
+.bg-orange-500 button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  /* Completely revised mobile booking form styling */
+  .booking-controls {
+    position: static !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    padding: 0 1rem !important;
+  }
+  
+  .booking-controls > * {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  .booking-controls select,
+  .booking-controls button {
+    height: 54px !important;
+    font-size: 1rem !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  .booking-controls button {
+    margin-top: 0.5rem !important;
+  }
+  
+  .date-select-container {
+    width: 100% !important;
+  }
+  
+  #custom-date {
+    margin-top: 0.5rem !important;
+    height: 54px !important;
+    width: 100% !important;
+    border-radius: 0.5rem !important;
+    padding: 0 1rem !important;
+  }
+  
+  /* Enhanced dropdown animations */
+  .booking-controls select {
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .booking-controls select:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  h2.text-3xl {
+    font-size: 1.75rem;
+  }
+  
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .bg-orange-500 h2 {
+    font-size: 2rem;
+  }
+  
+  /* Enhanced mobile menu animation */
+  .mobile-menu-btn {
+    transform-origin: center;
+  }
+  
+  .mobile-menu-btn svg {
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+  
+  .mobile-menu:not(.hidden) {
+    animation: slideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+/* Magnetic Button Effect */
+.magnetic-btn.book-now-btn {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.21, 0.61, 0.35, 1);
+  transform-style: preserve-3d;
+  transform-origin: center;
+  overflow: hidden;
+}
+
+.magnetic-btn.book-now-btn::before {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.magnetic-btn.book-now-btn .btn-content {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.magnetic-btn.book-now-btn:hover .btn-content {
+  transform: translateZ(10px);
+  letter-spacing: 0.5px;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+/* Book Now container - prevents affecting neighboring elements */
+.book-now-container {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Button hover effects */
+.bg-orange-500:hover {
+  background-color: var(--orange-600);
+  transition: background-color 0.2s ease;
+}
+
+/* About Us section styling */
+section.bg-black .text-orange-400 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+section.bg-black .text-orange-400::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: var(--orange-500);
+  bottom: -8px;
+  left: 0;
+}
+
+section.bg-black li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Footer styling */
+footer {
+  background-image: linear-gradient(to bottom, #111827, #1f2937);
+}
+
+footer h3 {
+  position: relative;
+  display: inline-block;
+}
+
+footer h3:after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: var(--orange-500);
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+footer .md\:text-left h3:after {
+  margin: 0;
+}
+
+footer .md\:text-right h3:after {
+  margin: 0 0 0 auto;
+}
+
+/* Social icons hover effect */
+footer svg {
+  transition: transform 0.2s ease;
+}
+
+footer a:hover svg {
+  transform: translateY(-3px);
+}
+
+/* Image placeholder styling - in a real project these would be replaced with actual images */
+[src$=".jpg"]:not(.loading-logo), 
+[src$=".png"]:not(.loading-logo) {
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+[src$=".jpg"]:not(.loading-logo)::after, 
+[src$=".png"]:not(.loading-logo)::after {
+  content: "Image";
+  font-size: 1.5rem;
+  color: #9ca3af;
+}
+
+/* Keep transparent backgrounds for logos */
+.loading-logo, .logo {
+  background-color: transparent !important;
+}
+
+.loading-logo::after, .logo::after {
+  content: none !important;
+}
+
+/* Exception for SVG logo */
+[src$=".svg"] {
+  background-color: transparent;
+} 
